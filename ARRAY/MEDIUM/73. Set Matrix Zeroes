@@ -1,0 +1,81 @@
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& M) {
+        int n=  M.size();
+        int m=  M[0].size();
+
+        vector<int> row(n,0);
+        vector<int> col(m,0);
+
+        //mark rows and columns
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(M[i][j]==0){
+                    row[i]=1;
+                    col[j]=1;
+                }
+            }  
+        }
+
+        //set zeros
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(row[i]==1 || col[j]==1){
+                    M[i][j]=0;
+                }
+            }
+        }
+    }
+};
+
+
+--------------------------------
+
+
+🧠 What are row[] and col[] doing?
+
+👉 They are just markers (flags)
+👉 They don’t store values, they just say:
+
+1 = this row/column should become zero
+0 = leave it as it is
+🔍 Example
+
+Matrix:
+
+1 1 1
+1 0 1
+1 1 1
+🟡 Step 1: Marking
+
+When we find 0 at (1,1):
+
+row[1] = 1;
+col[1] = 1;
+
+👉 Means:
+
+Entire row 1 should become 0
+Entire column 1 should become 0
+🟢 After marking
+row = [0, 1, 0]
+col = [0, 1, 0]
+🔴 Step 2: Apply changes
+
+Now we check:
+
+if(row[i] == 1 || col[j] == 1)
+    make M[i][j] = 0;
+✅ Final matrix
+1 0 1
+0 0 0
+1 0 1
+🧠 Simple understanding
+
+👉
+
+row[i] = 1 → “this row has a zero somewhere”
+col[j] = 1 → “this column has a zero somewhere”
+🎯 One-line memory trick
+
+👉 “Row/Col array just remembers where zeros were found”
